@@ -17,7 +17,7 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          dnf install -y rpmdevtools rpm-sign rpkg python3-setuptools 'dnf-command(builddep)'
+          dnf install -y rpmdevtools rpm-sign gh rpkg python3-setuptools 'dnf-command(builddep)'
           dnf builddep -y ./iptsd.spec
 
       - name: Prepare build
