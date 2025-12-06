@@ -20,15 +20,21 @@ jobs:
           dnf install -y rpmdevtools rpm-sign rpkg python3-setuptools 'dnf-command(builddep)'
           dnf builddep -y ./iptsd.spec
 
-      - name: Make build
+      - name: Prepare build
         run: |
-          pwd
-          echo "------------"
-          ls
-          echo "------------"
-          echo "-> build to $(pwd)/rpm"
+          cat <<EOT > ./rpkg.conf
+          [rpkg]
+          user_macros = "/__w/iptsd/iptsd/rpkg.macros"
+          EOT
+
+          cat ./rpkg.conf
+
+      - name: Make build
+        env:
+         git_props_root: "/__w/iptsd/iptsd"
+        run: |
           mkdir rpm
-          rpkg local --outdir "/__w/iptsd/iptsd/rpm"
+          rpkg local --outdir "$(pwd)/rpm"
           ls ./rpm
 
       - name: Create Release
