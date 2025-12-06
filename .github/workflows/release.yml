@@ -22,14 +22,13 @@ jobs:
 
       - name: Make build
         run: |
-          echo "-> ${{ github.workspace }}"
           pwd
           echo "------------"
           ls
           echo "------------"
           echo "-> build to $(pwd)/rpm"
           mkdir rpm
-          rpkg local --outdir "$(pwd)/rpm"
+          rpkg local --outdir "/__w/iptsd/iptsd/rpm"
           ls ./rpm
 
       - name: Create Release
